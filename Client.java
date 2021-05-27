@@ -38,7 +38,9 @@ public class Client {
         public void run(){
 
             try{ 
-                
+                //while(true){ to keep connection open on client side
+
+                //}
             }
             catch(Exception ex){
                 System.out.println("Exception caught in listener - " + ex);
