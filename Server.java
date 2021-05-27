@@ -27,19 +27,21 @@ public class Server {
 
             //sets up client and adds it to the list
             while(true) {
-                Socket socket = serverSocket.accept();
+                if(clientArrayList.size() < 2){
+                    Socket socket = serverSocket.accept();
 
-                System.out.printf ("Connected to %s:%d on local port %d\n", socket.getInetAddress(),
-                    socket.getPort(), socket.getLocalPort());
+                    System.out.printf ("Connected to %s:%d on local port %d\n", socket.getInetAddress(),
+                        socket.getPort(), socket.getLocalPort());
 
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream());
-                String name = socket.getInetAddress().getHostAddress();
-                ClientData cd = new ClientData(socket, input, out, name);
+                    BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    PrintWriter out = new PrintWriter(socket.getOutputStream());
+                    String name = socket.getInetAddress().getHostAddress();
+                    ClientData cd = new ClientData(socket, input, out, name);
 
-                clientList.add(cd);
+                    clientList.add(cd);
 
-                pool.execute(new ClientHandler(cd));
+                    pool.execute(new ClientHandler(cd));
+                }
             }
     
         }
@@ -73,6 +75,8 @@ public class Server {
                 cd.setUserName(userName);
                 broadcast(String.format("WELCOME %s", cd.getUserName())); //broadcast person's name
 
+                String incoming = "";
+                while(!(incoming = in.readLine()).startsWith("QUIT")){}
             }
             catch(Exception e){
                 if(e instanceof SocketException){
@@ -81,7 +85,7 @@ public class Server {
                 System.out.println("caught exception:" + e);
                 e.printStackTrace();
             }
-            /*
+            
             finally{
                 clientList.remove(cd);
 
@@ -93,7 +97,7 @@ public class Server {
                 }
                 catch(Exception ex){}
             }
-            */
+            
         }
     }
 
