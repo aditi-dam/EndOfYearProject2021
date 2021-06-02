@@ -31,24 +31,31 @@ public class Client {
         String userName = userInput.nextLine();
         out.println(userName);
 
+        //this thread listens and sends things to the server
+        String line = userInput.nextLine().trim();
+
+        while(!line.equals("/quit")){
+            out.println(line);
+            line = userInput.nextLine().trim();
+        }
+
+        out.println("QUIT");
+        out.close();
+        userInput.close();
+        socketIn.close();
+        socket.close();
+
     }
 
     static class ServerListener implements Runnable{
 
         public void run(){
-            Scanner in = new Scanner(System.in);
 
             try{ 
-                Scanner inp = new Scanner(System.in);
                 String incoming = "";
-                System.out.println("hi");
-                
 
-                while(incoming != null){ 
-                    if(incoming.startsWith("QUIT")){
-                        incoming = null;
-                    }
-                    incoming = inp.nextLine();
+                while((incoming = socketIn.readLine()) != null){ 
+                    System.out.println(incoming);
                 }
             }
             catch(Exception ex){

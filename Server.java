@@ -15,6 +15,7 @@ public class Server {
     public static final int PORT = 54323;
     private static final ArrayList<ClientData> clientArrayList = new ArrayList<>();
     private static final List<ClientData> clientList = Collections.synchronizedList(clientArrayList); 
+    //clientList and clientArrayList refer to the same thing, but clientList has a wrapper around clientArrayList that is thread safe
 
     public static void main(String[] args) throws Exception{
         ExecutorService pool = Executors.newFixedThreadPool(100); //instead of creating/deleting threads spontaneously, threads can be created and then reused with thread pooling
@@ -27,7 +28,8 @@ public class Server {
 
             //sets up client and adds it to the list
             while(true) {
-                if(clientArrayList.size() < 2){
+
+                if(clientArrayList.size() < 2){ 
                     Socket socket = serverSocket.accept();
 
                     System.out.printf ("Connected to %s:%d on local port %d\n", socket.getInetAddress(),
@@ -76,9 +78,14 @@ public class Server {
                 broadcast(String.format("WELCOME %s", cd.getUserName())); //broadcast person's name
 
                 String incoming = "";
-                while(!(incoming = in.readLine()).startsWith("QUIT")){
-                    //System.out.println(incoming);
+                
+                while((incoming = in.readLine()) != null){ 
+
+                    if(incoming.startsWith("QUIT")){
+                        break;
+                    }
                 }
+
             }
             catch(Exception e){
                 if(e instanceof SocketException){
@@ -87,7 +94,6 @@ public class Server {
                 System.out.println("caught exception:" + e);
                 e.printStackTrace();
             }
-            
             finally{
                 clientList.remove(cd);
 
@@ -99,7 +105,6 @@ public class Server {
                 }
                 catch(Exception ex){}
             }
-            
         }
     }
 
