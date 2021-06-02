@@ -6,10 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Server",
+            "request": "launch",
+            "mainClass": "Server",
+            "projectName": "EndOfYearProject2021_aa52407d"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "vmArgs": "--module-path \"C:\\javafx-sdk-11.0.2\\lib\" --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path \"C:\\javafx-sdk-11.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",

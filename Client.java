@@ -36,14 +36,26 @@ public class Client {
     static class ServerListener implements Runnable{
 
         public void run(){
+            Scanner in = new Scanner(System.in);
 
             try{ 
-                //while(true){ to keep connection open on client side
+                Scanner inp = new Scanner(System.in);
+                String incoming = "";
+                System.out.println("hi");
+                
 
-                //}
+                while(incoming != null){ 
+                    if(incoming.startsWith("QUIT")){
+                        incoming = null;
+                    }
+                    incoming = inp.nextLine();
+                }
             }
             catch(Exception ex){
                 System.out.println("Exception caught in listener - " + ex);
+            }
+            finally{
+                System.out.println("Listener exiting");
             }
         }
     }

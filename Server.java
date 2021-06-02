@@ -76,7 +76,9 @@ public class Server {
                 broadcast(String.format("WELCOME %s", cd.getUserName())); //broadcast person's name
 
                 String incoming = "";
-                while(!(incoming = in.readLine()).startsWith("QUIT")){}
+                while(!(incoming = in.readLine()).startsWith("QUIT")){
+                    //System.out.println(incoming);
+                }
             }
             catch(Exception e){
                 if(e instanceof SocketException){
