@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+
 public class ClientData { 
     // to keep all the data related to the connections in one place
     private Socket socket;

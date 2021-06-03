@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javafx.stage.Stage;
+
 public class Server {
     public static final int PORT = 54323;
     private static final ArrayList<ClientData> clientArrayList = new ArrayList<>();

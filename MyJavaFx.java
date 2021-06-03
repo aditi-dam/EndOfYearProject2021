@@ -15,7 +15,10 @@ public class MyJavaFx extends Application {
         primaryStage.show();
     }
 
+    /** 
     public static void main(String[] args) {
         Application.launch(args);
     }
+    */
+    
 }

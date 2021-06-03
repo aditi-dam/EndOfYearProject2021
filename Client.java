@@ -4,12 +4,17 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+public class Client extends Application {
     private static Socket socket;
     private static BufferedReader socketIn;
     private static PrintWriter out;
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Server IP?");
         String ip = userInput.nextLine();
@@ -26,15 +31,16 @@ public class Client {
         ServerListener listener = new ServerListener();
         Thread t = new Thread(listener);
         t.start();
+        Application.launch(args);
 
         System.out.println("Enter your username.");
         String userName = userInput.nextLine();
         out.println(userName);
 
-        //this thread listens and sends things to the server
+        // this thread listens and sends things to the server
         String line = userInput.nextLine().trim();
 
-        while(!line.equals("/quit")){
+        while (!line.equals("/quit")) {
             out.println(line);
             line = userInput.nextLine().trim();
         }
@@ -47,24 +53,31 @@ public class Client {
 
     }
 
-    static class ServerListener implements Runnable{
+    static class ServerListener implements Runnable {
 
-        public void run(){
+        public void run() {
 
-            try{ 
+            try {
                 String incoming = "";
 
-                while((incoming = socketIn.readLine()) != null){ 
+                while ((incoming = socketIn.readLine()) != null) {
                     System.out.println(incoming);
                 }
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Exception caught in listener - " + ex);
-            }
-            finally{
+            } finally {
                 System.out.println("Listener exiting");
             }
         }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Button btOk = new Button("OK");
+        Scene scene = new Scene(btOk, 200, 250);
+        primaryStage.setTitle("MyJavaFX");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 }
