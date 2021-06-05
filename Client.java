@@ -6,7 +6,10 @@ import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Client extends Application {
@@ -71,13 +74,40 @@ public class Client extends Application {
         }
     }
 
+    Canvas canvas = new Canvas(800, 500); //like a paper
+    GraphicsContext gc; //like a pencil
+    
+    StackPane pane = new StackPane();
+    Scene scene = new Scene(pane, 800, 500);
+
     @Override
     public void start(Stage primaryStage) {
-        Button btOk = new Button("OK");
-        Scene scene = new Scene(btOk, 200, 250);
-        primaryStage.setTitle("MyJavaFX");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        try{
+            gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.BLACK); //default color
+            gc.setLineWidth(5); //default width
+
+            //drawing functionality
+            scene.setOnMousePressed(e->{ 
+                gc.beginPath();
+                gc.lineTo(e.getSceneX(), e.getSceneY()); //get mouse positions and pass them to lineTo()s
+                gc.stroke();
+            });
+
+            scene.setOnMouseDragged(e->{
+                gc.lineTo(e.getSceneX(), e.getSceneY());                
+                gc.stroke();
+            });
+            //until here
+            
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            pane.getChildren().add(canvas);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
