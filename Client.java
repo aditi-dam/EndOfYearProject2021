@@ -45,6 +45,18 @@ public class Client extends Application {
         String line = userInput.nextLine().trim();
 
         while (!line.equals("/quit")) {
+            if (line.toLowerCase().equals("/directions")) {
+                // print directions
+            }
+            else if (line.toLowerCase().equals("/pictionary")) {
+                // start pictionary game with other clients
+                // we'll have to implement a check to make sure other clients are present
+                // maybe we can give other clients an option of joining the game?
+            }
+            else if (line.toLowerCase().equals("/whiteboard")) {
+                // open the whiteboard for free drawing
+            }
+
             out.println(line);
             line = userInput.nextLine().trim();
         }
