@@ -17,7 +17,6 @@ public class Server {
     public static final int PORT = 54323;
     private static final ArrayList<ClientData> clientArrayList = new ArrayList<>();
     private static final List<ClientData> clientList = Collections.synchronizedList(clientArrayList); 
-    //clientList and clientArrayList refer to the same thing, but clientList has a wrapper around clientArrayList that is thread safe
 
     public static void main(String[] args) throws Exception{
         ExecutorService pool = Executors.newFixedThreadPool(100); //instead of creating/deleting threads spontaneously, threads can be created and then reused with thread pooling
@@ -28,7 +27,6 @@ public class Server {
             System.out.println("Local IP: " + Inet4Address.getLocalHost().getHostAddress());
             System.out.println("Port: " + serverSocket.getLocalPort());
 
-            //sets up client and adds it to the list
             while(true) {
 
                 if(clientArrayList.size() < 2){ 
@@ -59,10 +57,12 @@ public class Server {
         }
 
         private void broadcast(String coordinates){
-            //send the message to everyone connected (stored in clientList)
+            //#3: send the message to everyone connected (including the person that sent it)
+            //this is what is failing... currently we want the code to print to each individual client all the coordinates that the other person drew on
+            //but it's not printing (c.getOut() might not be the same as the output stream in client but idk yet)
             try{
                 for(ClientData c : clientList){
-                    c.getOut().println(coordinates); //get the printwriter and write out the message
+                    c.getOut().println(coordinates); 
                 }
             }
             catch(Exception ex){
@@ -74,9 +74,9 @@ public class Server {
         public void run(){
             try{
                 BufferedReader in = cd.getInput();
-                String userName = in.readLine().trim(); //first thing user sends is name
+                String userName = in.readLine().trim(); 
                 cd.setUserName(userName);
-                broadcast(String.format("WELCOME %s", cd.getUserName())); //broadcast person's name
+                broadcast(String.format("WELCOME %s", cd.getUserName())); 
 
                 String incoming = "";
                 
@@ -85,7 +85,7 @@ public class Server {
                     if(incoming.startsWith("QUIT")){
                         break;
                     }
-                    else if(incoming.startsWith("COORDINATE")){
+                    else if(incoming.startsWith("COORDINATE")){ //#2: If the server is receiving coordinates, broadcast it to all the clients
                         broadcast(incoming);
                     }
                 }

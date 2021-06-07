@@ -16,7 +16,6 @@ public class Client extends Application {
     private static Socket socket;
     private static BufferedReader socketIn;
     private static PrintWriter out;
-
     public static void main(String[] args) throws Exception {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Server IP?");
@@ -34,14 +33,13 @@ public class Client extends Application {
         ServerListener listener = new ServerListener();
         Thread t = new Thread(listener);
         t.start();
-
+        System.out.println(out); //DELETE
         System.out.println("Enter your username.");
         String userName = userInput.nextLine();
         out.println(userName);
 
         Application.launch(args);
 
-        // this thread listens and sends things to the server
         String line = userInput.nextLine().trim();
 
         while (!line.equals("/quit")) {
@@ -63,11 +61,10 @@ public class Client extends Application {
 
             try {
                 String incoming = "";
+                System.out.println(incoming);
 
                 while ((incoming = socketIn.readLine()) != null) {
-                    if(incoming.startsWith("COORDINATE")){
-                        System.out.println(incoming);
-                    }
+                    System.out.println(incoming); //COORDINATES SHOULD PRINT
                 }
             } catch (Exception ex) {
                 System.out.println("Exception caught in listener - " + ex);
@@ -77,8 +74,8 @@ public class Client extends Application {
         }
     }
 
-    Canvas canvas = new Canvas(800, 500); //like a paper
-    GraphicsContext gc; //like a pencil
+    Canvas canvas = new Canvas(800, 500); 
+    GraphicsContext gc; 
     
     StackPane pane = new StackPane();
     Scene scene = new Scene(pane, 800, 500);
@@ -87,14 +84,13 @@ public class Client extends Application {
     public void start(Stage primaryStage) {
         try{
             gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.BLACK); //default color
-            gc.setLineWidth(5); //default width
+            gc.setStroke(Color.BLACK); 
+            gc.setLineWidth(5); 
 
-            //drawing functionality
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
-                gc.lineTo(e.getSceneX(), e.getSceneY()); //get mouse positions and pass them to lineTo()s
-                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY());
+                gc.lineTo(e.getSceneX(), e.getSceneY()); 
+                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY()); //#1: Pass the coordinates that the user is drawing on to server
                 gc.stroke();
             });
 
