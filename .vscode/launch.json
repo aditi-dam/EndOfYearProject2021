@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "Client",
+            "projectName": "EndOfYearProject2021_98208775"
+        },
+        {
+            "type": "java",
             "name": "Launch Server",
             "request": "launch",
             "mainClass": "Server",
