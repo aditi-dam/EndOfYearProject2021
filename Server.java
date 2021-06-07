@@ -86,6 +86,9 @@ public class Server {
                     if(incoming.startsWith("QUIT")){
                         break;
                     }
+                    else{
+                        System.out.println(incoming);
+                    }
                 }
 
             }

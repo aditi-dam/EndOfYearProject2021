@@ -34,11 +34,12 @@ public class Client extends Application {
         ServerListener listener = new ServerListener();
         Thread t = new Thread(listener);
         t.start();
-        Application.launch(args);
 
         System.out.println("Enter your username.");
         String userName = userInput.nextLine();
         out.println(userName);
+
+        Application.launch(args);
 
         // this thread listens and sends things to the server
         String line = userInput.nextLine().trim();
@@ -64,7 +65,7 @@ public class Client extends Application {
                 String incoming = "";
 
                 while ((incoming = socketIn.readLine()) != null) {
-                    System.out.println(incoming);
+                    out.println(incoming);
                 }
             } catch (Exception ex) {
                 System.out.println("Exception caught in listener - " + ex);
@@ -91,6 +92,7 @@ public class Client extends Application {
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
                 gc.lineTo(e.getSceneX(), e.getSceneY()); //get mouse positions and pass them to lineTo()s
+                out.println(e.getSceneX() + e.getSceneY());
                 gc.stroke();
             });
 
