@@ -58,12 +58,11 @@ public class Server {
             this.cd = cd;
         }
 
-        private void broadcast(String msg){
+        private void broadcast(String coordinates){
             //send the message to everyone connected (stored in clientList)
             try{
-                System.out.println("Broadcasting -- " + msg);
                 for(ClientData c : clientList){
-                    c.getOut().println(msg); //get the printwriter and write out the message
+                    c.getOut().println(coordinates); //get the printwriter and write out the message
                 }
             }
             catch(Exception ex){
@@ -85,6 +84,9 @@ public class Server {
 
                     if(incoming.startsWith("QUIT")){
                         break;
+                    }
+                    else if(incoming.startsWith("COORDINATE")){
+                        broadcast(incoming);
                     }
                 }
 
