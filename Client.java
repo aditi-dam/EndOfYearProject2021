@@ -65,7 +65,9 @@ public class Client extends Application {
                 String incoming = "";
 
                 while ((incoming = socketIn.readLine()) != null) {
-                    out.println(incoming);
+                    if(incoming.startsWith("COORDINATE")){
+                        System.out.println(incoming);
+                    }
                 }
             } catch (Exception ex) {
                 System.out.println("Exception caught in listener - " + ex);
@@ -92,7 +94,7 @@ public class Client extends Application {
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
                 gc.lineTo(e.getSceneX(), e.getSceneY()); //get mouse positions and pass them to lineTo()s
-                out.println(e.getSceneX() + e.getSceneY());
+                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY());
                 gc.stroke();
             });
 
