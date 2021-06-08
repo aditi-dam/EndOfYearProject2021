@@ -43,6 +43,7 @@ public class Client extends Application {
         String line = userInput.nextLine().trim();
 
         while (!line.equals("/quit")) {
+            /*
             if (line.toLowerCase().equals("/directions")) {
                 // print directions
             }
@@ -54,6 +55,7 @@ public class Client extends Application {
             else if (line.toLowerCase().equals("/whiteboard")) {
                 // open the whiteboard for free drawing
             }
+            */
 
             out.println(line);
             line = userInput.nextLine().trim();
