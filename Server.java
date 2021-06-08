@@ -56,14 +56,16 @@ public class Server {
             this.cd = cd;
         }
 
-        private void broadcast(String coordinates){
+        private void broadcast(String coordinates, ClientData skip){
             //#3: send the message to everyone connected (including the person that sent it)
             //this is what is failing... currently we want the code to print to each individual client all the coordinates that the other person drew on
             //but it's not printing (c.getOut() might not be the same as the output stream in client but idk yet)
             try{
                 for(ClientData c : clientList){
-                    c.getOut().println(coordinates); 
-                    c.getOut().flush();
+                    if(!(c.equals(skip))){
+                        c.getOut().println(coordinates); 
+                        c.getOut().flush();
+                    }
                 }
             }
             catch(Exception ex){
@@ -77,7 +79,7 @@ public class Server {
                 BufferedReader in = cd.getInput();
                 String userName = in.readLine().trim(); 
                 cd.setUserName(userName);
-                broadcast(String.format("WELCOME %s", cd.getUserName())); 
+                broadcast(String.format("WELCOME %s", cd.getUserName()), cd); 
 
                 String incoming = "";
                 
@@ -87,7 +89,7 @@ public class Server {
                         break;
                     }
                     else if(incoming.startsWith("COORDINATE")){ //#2: If the server is receiving coordinates, broadcast it to all the clients
-                        broadcast(incoming);
+                        broadcast(incoming, cd);
                     }
                 }
 
@@ -103,7 +105,7 @@ public class Server {
                 clientList.remove(cd);
 
                 System.out.println(cd.getName() + " has left");
-                broadcast(String.format("EXIT %s", cd.getUserName()));
+                broadcast(String.format("EXIT %s", cd.getUserName()), cd);
 
                 try{
                     cd.getSocket().close();

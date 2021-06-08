@@ -129,7 +129,8 @@ public class Client extends Application {
 
             scene.setOnMouseDragged(e->{
                 gc.lineTo(e.getSceneX(), e.getSceneY());
-                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY());                
+                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY()); 
+                System.out.println("x: " + e.getSceneX() + "y: " + e.getSceneY());     
                 gc.stroke();
             });
             //until here
