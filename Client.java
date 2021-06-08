@@ -16,6 +16,12 @@ public class Client extends Application {
     private static Socket socket;
     private static BufferedReader socketIn;
     private static PrintWriter out;
+
+    public static Canvas canvas = new Canvas(800, 500); 
+    public static GraphicsContext gc; 
+        
+    public static StackPane pane = new StackPane();
+    public static Scene scene = new Scene(pane, 800, 500);
     public static void main(String[] args) throws Exception {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Server IP?");
@@ -41,9 +47,10 @@ public class Client extends Application {
         Application.launch(args);
 
         String line = userInput.nextLine().trim();
-
+        
+        /*
         while (!line.equals("/quit")) {
-            /*
+            
             if (line.toLowerCase().equals("/directions")) {
                 // print directions
             }
@@ -55,11 +62,12 @@ public class Client extends Application {
             else if (line.toLowerCase().equals("/whiteboard")) {
                 // open the whiteboard for free drawing
             }
-            */
+            
 
             out.println(line);
             line = userInput.nextLine().trim();
         }
+        */
 
         
 
@@ -80,7 +88,13 @@ public class Client extends Application {
                 System.out.println(incoming);
 
                 while ((incoming = socketIn.readLine()) != null) {
-                    System.out.println(incoming); //COORDINATES SHOULD PRINT
+                    //System.out.println(incoming); //COORDINATES SHOULD PRINT
+                    if(incoming.startsWith("COORDINATE")){
+                        String x = incoming.substring(incoming.indexOf("x") + 1, incoming.indexOf("y"));
+                        String y = incoming.substring(incoming.indexOf("y") + 1);
+                        draw(Double.valueOf(x), Double.valueOf(y));
+                    }
+
                 }
             } catch (Exception ex) {
                 System.out.println("Exception caught in listener - " + ex);
@@ -88,13 +102,18 @@ public class Client extends Application {
                 System.out.println("Listener exiting");
             }
         }
+
+        public void draw(double x, double y){
+            gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.BLACK); 
+            gc.setLineWidth(5); 
+
+            gc.beginPath();
+            gc.lineTo(x, y); 
+            gc.stroke();
+        }
     }
 
-    Canvas canvas = new Canvas(800, 500); 
-    GraphicsContext gc; 
-    
-    StackPane pane = new StackPane();
-    Scene scene = new Scene(pane, 800, 500);
 
     @Override
     public void start(Stage primaryStage) {
@@ -105,13 +124,12 @@ public class Client extends Application {
 
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
-                gc.lineTo(e.getSceneX(), e.getSceneY()); 
-                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY()); //#1: Pass the coordinates that the user is drawing on to server
-                gc.stroke();
+                gc.lineTo(e.getSceneX(), e.getSceneY());                 gc.stroke();
             });
 
             scene.setOnMouseDragged(e->{
-                gc.lineTo(e.getSceneX(), e.getSceneY());                
+                gc.lineTo(e.getSceneX(), e.getSceneY());
+                out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY());                
                 gc.stroke();
             });
             //until here
@@ -125,5 +143,6 @@ public class Client extends Application {
             e.printStackTrace();
         }
     }
+
 
 }

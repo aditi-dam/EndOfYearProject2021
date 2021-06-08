@@ -63,6 +63,7 @@ public class Server {
             try{
                 for(ClientData c : clientList){
                     c.getOut().println(coordinates); 
+                    c.getOut().flush();
                 }
             }
             catch(Exception ex){
