@@ -63,6 +63,11 @@ public class Server {
             try{
                 for(ClientData c : clientList){
                     if(!(c.equals(skip))){
+                        ///code for log of coordinates
+                        String x = coordinates.substring(coordinates.indexOf("x") + 1, coordinates.indexOf("y"));
+                        String y = coordinates.substring(coordinates.indexOf("y") + 1);
+                        System.out.println("x" + x + "y" + y);
+                        ///
                         c.getOut().println(coordinates); 
                         c.getOut().flush();
                     }
