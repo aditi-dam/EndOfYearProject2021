@@ -5,9 +5,15 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -19,9 +25,14 @@ public class Client extends Application {
 
     public static Canvas canvas = new Canvas(800, 500); 
     public static GraphicsContext gc; 
+    public static ColorPicker cp = new ColorPicker();
+    public static Slider slider = new Slider();
+    public static Label label = new Label("1.0");
+    public static GridPane grid = new GridPane();
         
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
+
     public static void main(String[] args) throws Exception {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Server IP?");
@@ -48,16 +59,20 @@ public class Client extends Application {
 
         String line = userInput.nextLine().trim();
         
-        /*
         while (!line.equals("/quit")) {
             
             if (line.toLowerCase().equals("/directions")) {
                 // print directions
+                System.out.println("Welcome to our Collaborative Whiteboard!");
+                System.out.println("If you'd like to play a game of Pictionary, type in /pictionary.");
+                System.out.println("If there are other clients on the whiteboard, then the game will start.");
+                System.out.println("You can also type in /whiteboard just for free drawing.");
+                System.out.println("To quit, type in /quit.");
+                System.out.println("Have fun!");
             }
             else if (line.toLowerCase().equals("/pictionary")) {
                 // start pictionary game with other clients
                 // we'll have to implement a check to make sure other clients are present
-                // maybe we can give other clients an option of joining the game?
             }
             else if (line.toLowerCase().equals("/whiteboard")) {
                 // open the whiteboard for free drawing
@@ -67,8 +82,6 @@ public class Client extends Application {
             out.println(line);
             line = userInput.nextLine().trim();
         }
-        */
-
         
 
         out.println("QUIT");
@@ -123,6 +136,27 @@ public class Client extends Application {
             gc = canvas.getGraphicsContext2D();
             gc.setStroke(Color.BLACK); 
             gc.setLineWidth(5); 
+
+            cp.setValue(Color.BLACK);
+            cp.setOnAction(e->{
+                gc.setStroke(cp.getValue());
+            });
+
+            slider.setMin(1);
+            slider.setMax(100);
+            slider.setShowTickLabels(true);
+            slider.setShowTickMarks(true);
+            slider.valueProperty().addListener(e->{
+                double value = slider.getValue();
+                String str = String.format("%.1f", value);
+                label.setText(str);
+                gc.setLineWidth(value);
+            });
+
+            grid.addRow(0, cp, slider, label);
+            grid.setHgap(20);
+            grid.setAlignment(Pos.TOP_CENTER);
+            grid.setPadding(new Insets(20, 0, 0, 0));
 
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
