@@ -88,11 +88,13 @@ public class Client extends Application {
                 System.out.println(incoming);
 
                 while ((incoming = socketIn.readLine()) != null) {
-                    //System.out.println(incoming); //COORDINATES SHOULD PRINT
-                    if(incoming.startsWith("COORDINATE")){
-                        String x = incoming.substring(incoming.indexOf("x") + 1, incoming.indexOf("y"));
-                        String y = incoming.substring(incoming.indexOf("y") + 1);
-                        draw(Double.valueOf(x), Double.valueOf(y));
+
+                    if(incoming.startsWith("COORDINATE1")){
+                        gc.beginPath();
+                        draw(incoming);
+                    }
+                    else if(incoming.startsWith("COORDINATE")){
+                        draw(incoming);
                     }
 
                 }
@@ -103,12 +105,12 @@ public class Client extends Application {
             }
         }
 
-        public void draw(double x, double y){
-            gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.BLACK); 
-            gc.setLineWidth(5); 
-
-            gc.beginPath();
+        public void draw(String incoming){
+            double x = Double.valueOf(incoming.substring(incoming.indexOf("x") + 1, incoming.indexOf("y")));
+            double y = Double.valueOf(incoming.substring(incoming.indexOf("y") + 1));
+            ///code for log
+            System.out.println("x" + x + "y" + y);
+            ///
             gc.lineTo(x, y); 
             gc.stroke();
         }
@@ -124,13 +126,17 @@ public class Client extends Application {
 
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
-                gc.lineTo(e.getSceneX(), e.getSceneY());                 gc.stroke();
+                gc.lineTo(e.getSceneX(), e.getSceneY());
+                out.println("COORDINATE1: " + "x" + e.getSceneX() + "y" + e.getSceneY());
+                gc.stroke();
             });
 
             scene.setOnMouseDragged(e->{
                 gc.lineTo(e.getSceneX(), e.getSceneY());
                 out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY()); 
+                ///code for log
                 System.out.println("x: " + e.getSceneX() + "y: " + e.getSceneY());     
+                ///
                 gc.stroke();
             });
             //until here
