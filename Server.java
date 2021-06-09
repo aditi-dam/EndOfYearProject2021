@@ -56,19 +56,14 @@ public class Server {
             this.cd = cd;
         }
 
-        private void broadcast(String coordinates, ClientData skip){
+        private void broadcast(String message, ClientData skip){
             //#3: send the message to everyone connected (including the person that sent it)
             //this is what is failing... currently we want the code to print to each individual client all the coordinates that the other person drew on
             //but it's not printing (c.getOut() might not be the same as the output stream in client but idk yet)
             try{
                 for(ClientData c : clientList){
                     if(!(c.equals(skip))){
-                        ///code for log of coordinates
-                        String x = coordinates.substring(coordinates.indexOf("x") + 1, coordinates.indexOf("y"));
-                        String y = coordinates.substring(coordinates.indexOf("y") + 1);
-                        System.out.println("x" + x + "y" + y);
-                        ///
-                        c.getOut().println(coordinates); 
+                        c.getOut().println(message); 
                         c.getOut().flush();
                     }
                 }
@@ -96,6 +91,10 @@ public class Server {
                     }
                     else if(incoming.startsWith("COORDINATE")){ //#2: If the server is receiving coordinates, broadcast it to all the clients
                         broadcast(incoming, cd);
+                    }
+
+                    else if(incoming.startsWith("PLAYER 1")){
+                        broadcast("START", cd);
                     }
                 }
 

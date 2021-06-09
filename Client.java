@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -33,6 +34,8 @@ public class Client extends Application {
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
 
+    private static int playerNum = 0;
+
     public static void main(String[] args) throws Exception {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Server IP?");
@@ -56,31 +59,41 @@ public class Client extends Application {
         out.println(userName);
 
         Application.launch(args);
-
         String line = userInput.nextLine().trim();
+
+        if (line.toLowerCase().equals("/directions")) {
+            // print directions
+            System.out.println("Welcome to our Collaborative Whiteboard!");
+            System.out.println("If you'd like to play a game of Pictionary, type in /pictionary.");
+            System.out.println("If there are other clients on the whiteboard, then the game will start.");
+            System.out.println("You can also type in /whiteboard just for free drawing.");
+            System.out.println("To quit, type in /quit.");
+            System.out.println("Have fun!");
+        }
+        else if (line.toLowerCase().equals("/pictionary")) {
+            out.println("PLAYER 1");
+            playerNum = 1;
+            System.out.println(playerNum);
+        }
+
+        if(playerNum == 1){
+            File words = new File("pictionary_ideas.txt");
+            int randomWord = (int)(Math.random() * words.length());
+            Scanner s = new Scanner(words);
+
+            String word = "";
+            for(int i = 0; i <= randomWord; i++){
+                word = s.nextLine();
+            }
+            System.out.println(playerNum + ": " + word);
+        }
+
         
         while (!line.equals("/quit")) {
-            
-            if (line.toLowerCase().equals("/directions")) {
-                // print directions
-                System.out.println("Welcome to our Collaborative Whiteboard!");
-                System.out.println("If you'd like to play a game of Pictionary, type in /pictionary.");
-                System.out.println("If there are other clients on the whiteboard, then the game will start.");
-                System.out.println("You can also type in /whiteboard just for free drawing.");
-                System.out.println("To quit, type in /quit.");
-                System.out.println("Have fun!");
-            }
-            else if (line.toLowerCase().equals("/pictionary")) {
-                // start pictionary game with other clients
-                // we'll have to implement a check to make sure other clients are present
-            }
-            else if (line.toLowerCase().equals("/whiteboard")) {
-                // open the whiteboard for free drawing
-            }
-            
 
             out.println(line);
             line = userInput.nextLine().trim();
+
         }
         
 
@@ -108,6 +121,9 @@ public class Client extends Application {
                     }
                     else if(incoming.startsWith("COORDINATE")){
                         draw(incoming);
+                    }
+                    else if(incoming.startsWith("START")){
+                        playerNum = 2;
                     }
 
                 }
