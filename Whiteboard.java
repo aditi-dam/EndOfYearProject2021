@@ -27,15 +27,16 @@ public class Whiteboard extends Application{
     public static Pane pane;
     public static GridPane grid = new GridPane();
 
-    public Whiteboard(PrintWriter o, Scene s, Pane p){
+    public Whiteboard(PrintWriter o, Scene s, Pane p, GraphicsContext g, Canvas c){
         out = o;
         scene = s;
         pane = p;
+        gc = g;
+        canvas = c;
     }
 
     public void start(Stage primaryStage) {
         try{
-            gc = canvas.getGraphicsContext2D();
             gc.setStroke(Color.BLACK); 
             gc.setLineWidth(5); 
 
@@ -85,5 +86,14 @@ public class Whiteboard extends Application{
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+    public void draw(String incoming){
+        double x = Double.valueOf(incoming.substring(incoming.indexOf("x") + 1, incoming.indexOf("y")));
+        double y = Double.valueOf(incoming.substring(incoming.indexOf("y") + 1));
+        ///code for log
+        System.out.println("x" + x + "y" + y);
+        ///
+        gc.lineTo(x, y); 
+        gc.stroke();
     }
 }

@@ -21,12 +21,9 @@ public class Client extends Application {
     private static PrintWriter out;
 
     public static Canvas canvas = new Canvas(800, 500); 
-    public static GraphicsContext gc; 
-    public static ColorPicker cp = new ColorPicker();
-    public static Slider slider = new Slider();
-    public static Label label = new Label("1.0");
-    public static GridPane grid = new GridPane();
-        
+    public static GraphicsContext gc = canvas.getGraphicsContext2D();
+    public static Whiteboard w;
+
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
     public static Scanner userInput = new Scanner(System.in);
@@ -44,6 +41,8 @@ public class Client extends Application {
         socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
+        w = new Whiteboard(out, scene, pane, gc, canvas);
+
         ServerListener listener = new ServerListener();
         Thread t = new Thread(listener);
         t.start();
@@ -58,6 +57,10 @@ public class Client extends Application {
 
     }
 
+    public void start(Stage primaryStage) {
+        w.start(primaryStage);
+    }
+
     static class ServerListener implements Runnable {
 
         public void run() {
@@ -69,10 +72,10 @@ public class Client extends Application {
 
                     if(incoming.startsWith("COORDINATE1")){
                         gc.beginPath();
-                        draw(incoming);
+                        w.draw(incoming);
                     }
                     else if(incoming.startsWith("COORDINATE")){
-                        draw(incoming);
+                        w.draw(incoming);
                     }
 
                 }
@@ -83,23 +86,10 @@ public class Client extends Application {
             }
         }
 
-        public void draw(String incoming){
-            double x = Double.valueOf(incoming.substring(incoming.indexOf("x") + 1, incoming.indexOf("y")));
-            double y = Double.valueOf(incoming.substring(incoming.indexOf("y") + 1));
-            ///code for log
-            System.out.println("x" + x + "y" + y);
-            ///
-            gc.lineTo(x, y); 
-            gc.stroke();
-        }
     }
 
 
-    @Override
-    public void start(Stage primaryStage) {
-        Whiteboard w = new Whiteboard(out, scene, pane);
-        w.start(primaryStage);
-    }
+
 
     static class ClientListener implements Runnable{
         public void run(){
