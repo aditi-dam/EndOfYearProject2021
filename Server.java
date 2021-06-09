@@ -56,12 +56,12 @@ public class Server {
             this.cd = cd;
         }
 
-        private void broadcast(String coordinates, ClientData skip){
+        private void broadcast(String str, ClientData skip){
             //#3: send the message to everyone connected (including the person that sent it)
             try{
                 for(ClientData c : clientList){
                     if(!(c.equals(skip))){
-                        c.getOut().println(coordinates); 
+                        c.getOut().println(str); 
                         c.getOut().flush();
                     }
                 }
@@ -88,6 +88,9 @@ public class Server {
                         break;
                     }
                     else if(incoming.startsWith("COORDINATE")){ //#2: If the server is receiving coordinates, broadcast it to all the clients
+                        broadcast(incoming, cd);
+                    }
+                    else if(incoming.startsWith("START")){
                         broadcast(incoming, cd);
                     }
                 }

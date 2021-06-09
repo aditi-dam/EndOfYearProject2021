@@ -28,6 +28,8 @@ public class Client extends Application {
     public static Scene scene = new Scene(pane, 800, 500);
     public static Scanner userInput = new Scanner(System.in);
 
+    private static int playerNum = -1;
+
     public static void main(String[] args) throws Exception {
         System.out.println("Server IP?");
         String ip = userInput.nextLine();
@@ -77,6 +79,9 @@ public class Client extends Application {
                     else if(incoming.startsWith("COORDINATE")){
                         w.draw(incoming);
                     }
+                    else if(incoming.startsWith("START")){
+                        playerNum = 2;
+                    }
 
                 }
             } catch (Exception ex) {
@@ -87,9 +92,6 @@ public class Client extends Application {
         }
 
     }
-
-
-
 
     static class ClientListener implements Runnable{
         public void run(){
@@ -107,11 +109,13 @@ public class Client extends Application {
                     System.out.println("Have fun!");
                 }
                 else if (line.toLowerCase().equals("/pictionary")) {
-                    // start pictionary game with other clients
-                    // we'll have to implement a check to make sure other clients are present
+                    if(playerNum == -1){
+                        playerNum = 1;
+                        out.println("START");
+                    }
                 }
-                else if (line.toLowerCase().equals("/whiteboard")) {
-                    // open the whiteboard for free drawing
+                if(playerNum == 1){
+                    //SOMEONE: do pick random word and print it here
                 }
                 
                 out.println(line);
