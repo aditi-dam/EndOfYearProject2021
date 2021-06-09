@@ -84,7 +84,8 @@ public class Server {
                 BufferedReader in = cd.getInput();
                 String userName = in.readLine().trim(); 
                 cd.setUserName(userName);
-                broadcast(String.format("WELCOME %s", cd.getUserName()), cd); 
+                broadcast(String.format("WELCOME %s. Are you ready to play pictionary?\nBefore you start, here are a list of commands that may be useful.\n1. /directions: prints out the directions\n2. /pictionary: play pictionary\n3. /quit: quit game\n", cd.getUserName()), cd); 
+ 
 
                 String incoming = "";
                 
