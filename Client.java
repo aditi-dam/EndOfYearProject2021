@@ -1,8 +1,14 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.stream.Stream;
+import java.nio.file.Path;
+
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -115,7 +121,16 @@ public class Client extends Application {
                     }
                 }
                 if(playerNum == 1){
+                String word;
+                    File file = new File("pictionary_ideas.txt");
+                    int randomWord = (int) (Math.random() * file.length());
+                    
+                    for (int i = 0; i < randomWord; i++){
+                        word = file.get(randomWord);
+                    }
+                    System.out.println(word);
                     //SOMEONE: do pick random word and print it here
+                
                 }
                 
                 out.println(line);
