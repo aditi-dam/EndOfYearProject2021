@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.stream.Stream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 
@@ -115,34 +116,32 @@ public class Client extends Application {
                     System.out.println("Have fun!");
                 }
                 else if (line.toLowerCase().equals("/pictionary")) {
-                    if(playerNum == -1){
+                    if (playerNum == -1){
                         playerNum = 1;
                         out.println("START");
                     }
                 }
-                if(playerNum == 1){
-                String word;
-                    File file = new File("pictionary_ideas.txt");
-                    int randomWord = (int) (Math.random() * file.length());
-                    
-                    for (int i = 0; i < randomWord; i++){
-                        word = file.get(randomWord);
-                    }
-                    System.out.println(word);
-                    //SOMEONE: do pick random word and print it here
-                
+                if (playerNum == 1){
+                    try {
+                        int randomWord = (int) (Math.random() * "pictionary_idea.txt".length());
+                        String word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
+                        System.out.println(word);
+                        // https://stackoverflow.com/questions/2312756/how-to-read-a-specific-line-using-the-specific-line-number-from-a-file-in-java
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }                
                 }
                 
                 out.println(line);
                 line = userInput.nextLine().trim();
 
             }
-            try{ 
-            out.println("QUIT");
-            out.close();
-            userInput.close();
-            socketIn.close();
-            socket.close();
+            try { 
+                out.println("QUIT");
+                out.close();
+                userInput.close();
+                socketIn.close();
+                socket.close();
             }
             catch(Exception e){};
         }
