@@ -124,7 +124,6 @@ public class Client extends Application {
 
                             int randomWord = (int) (Math.random() * "pictionary_idea.txt".length());
                             word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
-                            System.out.println(word); //for now, later show it on the board
 
                             Whiteboard.setWord(word);
                             w.pictionary(playerNum);

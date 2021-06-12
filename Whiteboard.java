@@ -1,16 +1,22 @@
 import java.io.PrintWriter;
+import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -110,13 +116,21 @@ public class Whiteboard extends Application{
 
     public void pictionary(int playerNum){
         if(playerNum == 1){ //display the word on the screen
-            Text word = new Text();
-            word.setText(getWord());
-            word.setX(50); 
-            word.setY(50);
-            System.out.println("2");
-            pane.getChildren().add(word); //not working
-            System.out.println("3");
+            Platform.runLater(()->{
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("YOUR WORD IS:");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.setResizable(true);
+
+                alert.setHeaderText("");
+                alert.setContentText(getWord());
+                ButtonType close = new ButtonType("Close");
+                alert.getButtonTypes().setAll(close);
+
+                alert.showAndWait();
+
+                //Optional<ButtonType> result = alert.showAndWait();
+            });
         }
         else{ //enable guessing functionality
 
