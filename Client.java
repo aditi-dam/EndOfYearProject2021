@@ -121,15 +121,15 @@ public class Client extends Application {
                     try{
                         if (playerNum == -1){
                             playerNum = 1;
+
                             int randomWord = (int) (Math.random() * "pictionary_idea.txt".length());
                             word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
-                            System.out.println(word);
+                            System.out.println(word); //for now, later show it on the board
+
                             Whiteboard.setWord(word);
+                            w.pictionary(playerNum);
+
                             out.println("START" + word);
-                        }
-                        else if(playerNum == 2){
-                            System.out.println("YOU SAID " + line);
-                            System.out.println("CORRECT " + word);
                         }
                     }
                     catch (IOException e) {

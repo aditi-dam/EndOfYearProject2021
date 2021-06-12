@@ -12,21 +12,23 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 //hi
 
 public class Whiteboard extends Application{
 
-    public static Canvas canvas = new Canvas(800, 500); 
-    public static GraphicsContext gc; 
-    public static ColorPicker cp = new ColorPicker();
-    public static Slider slider = new Slider();
-    public static Label label = new Label("1.0");
-    public static PrintWriter out;
-    public static Scene scene;
-    public static Pane pane;
-    public static GridPane grid = new GridPane();
-    public static String word = "";
+    private static Canvas canvas = new Canvas(800, 500); 
+    private static GraphicsContext gc; 
+    private static ColorPicker cp = new ColorPicker();
+    private static Slider slider = new Slider();
+    private static Label label = new Label("1.0");
+    private static PrintWriter out;
+    private static Scene scene;
+    private static Pane pane;
+    private static GridPane grid = new GridPane();
+    private static String word = "";
+
 
     public static String getWord() {
         return word;
@@ -104,5 +106,21 @@ public class Whiteboard extends Application{
         ///
         gc.lineTo(x, y); 
         gc.stroke();
+    }
+
+    public void pictionary(int playerNum){
+        if(playerNum == 1){ //display the word on the screen
+            Text word = new Text();
+            word.setText(getWord());
+            word.setX(50); 
+            word.setY(50);
+            System.out.println("2");
+            pane.getChildren().add(word); //not working
+            System.out.println("3");
+        }
+        else{ //enable guessing functionality
+
+        }
+
     }
 }
