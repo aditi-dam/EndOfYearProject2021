@@ -34,7 +34,7 @@ public class Client extends Application {
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
     public static Scanner userInput = new Scanner(System.in);
-
+    
     private static int playerNum = -1;
 
     public static void main(String[] args) throws Exception {
@@ -88,6 +88,7 @@ public class Client extends Application {
                     }
                     else if(incoming.startsWith("START")){
                         playerNum = 2;
+                        Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
                     }
 
                 }
@@ -116,11 +117,32 @@ public class Client extends Application {
                     System.out.println("Have fun!");
                 }
                 else if (line.toLowerCase().equals("/pictionary")) {
+<<<<<<< HEAD
                     if (playerNum == -1){
                         playerNum = 1;
                         out.println("START");
+=======
+                    String word = "";
+                    try{
+                        if (playerNum == -1){
+                            playerNum = 1;
+                            int randomWord = (int) (Math.random() * "pictionary_idea.txt".length());
+                            word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
+                            System.out.println(word);
+                            Whiteboard.setWord(word);
+                            out.println("START" + word);
+                        }
+                        else if(playerNum == 2){
+                            System.out.println("YOU SAID " + line);
+                            System.out.println("CORRECT " + word);
+                        }
+>>>>>>> bb43a7db956694878d99c628d5828c8d50ed20d3
                     }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }     
                 }
+<<<<<<< HEAD
                 if (playerNum == 1){
                     try {
                         int randomWord = (int) (Math.random() * "pictionary_idea.txt".length());
@@ -130,6 +152,17 @@ public class Client extends Application {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }                
+=======
+                //https://stackoverflow.com/questions/2312756/how-to-read-a-specific-line-using-the-specific-line-number-from-a-file-in-java
+                 
+                else if(playerNum % 2 == 0){
+                    if(line.equals(Whiteboard.getWord().toLowerCase().trim())){
+                        System.out.println("YOU GOT IT");
+                    }
+                    else{
+                        System.out.println("KEEP TRYING");
+                    }
+>>>>>>> bb43a7db956694878d99c628d5828c8d50ed20d3
                 }
                 
                 out.println(line);

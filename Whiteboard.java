@@ -26,6 +26,15 @@ public class Whiteboard extends Application{
     public static Scene scene;
     public static Pane pane;
     public static GridPane grid = new GridPane();
+    public static String word = "";
+
+    public static String getWord() {
+        return word;
+    }
+
+    public static void setWord(String word) {
+        Whiteboard.word = word;
+    }
 
     public Whiteboard(PrintWriter o, Scene s, Pane p, GraphicsContext g, Canvas c){
         out = o;
