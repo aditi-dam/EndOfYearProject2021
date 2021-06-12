@@ -139,8 +139,12 @@ public class Client extends Application {
                 //https://stackoverflow.com/questions/2312756/how-to-read-a-specific-line-using-the-specific-line-number-from-a-file-in-java
                  
                 else if(playerNum % 2 == 0){
-                    System.out.println("YOU SAID: " + line);
-                    System.out.println("WORD IS: " + Whiteboard.getWord());
+                    if(line.equals(Whiteboard.getWord().toLowerCase().trim())){
+                        System.out.println("YOU GOT IT");
+                    }
+                    else{
+                        System.out.println("KEEP TRYING");
+                    }
                 }
                 
                 out.println(line);
