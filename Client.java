@@ -12,6 +12,7 @@ import java.nio.file.Path;
 
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -128,6 +129,7 @@ public class Client extends Application {
 
                             Whiteboard.setWord(word);
                             w.pictionary(playerNum);
+                            // Platform.runLater(arg0); Needs a runnable as a parameter
 
                             out.println("START" + word);
                         }
