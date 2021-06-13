@@ -9,12 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -24,16 +27,20 @@ import javafx.stage.Stage;
 
 public class Whiteboard extends Application{
 
-    private static Canvas canvas = new Canvas(800, 500); 
-    private static GraphicsContext gc; 
-    private static ColorPicker cp = new ColorPicker();
-    private static Slider slider = new Slider();
-    private static Label label = new Label("1.0");
-    private static PrintWriter out;
-    private static Scene scene;
-    private static Pane pane;
-    private static GridPane grid = new GridPane();
+    private Canvas canvas = new Canvas(800, 500); 
+    private GraphicsContext gc; 
+    private ColorPicker cp = new ColorPicker();
+    private Slider slider = new Slider();
+    private Label label = new Label("1.0");
+    private PrintWriter out;
+    private Scene scene;
+    private Pane pane;
+    private GridPane grid = new GridPane();
+    private TextField tf;
     private static String word = "";
+    private int guesses = 0;
+    private Text guessCount = new Text();
+    private Stage ps;
 
 
     public static String getWord() {
@@ -53,6 +60,7 @@ public class Whiteboard extends Application{
     }
 
     public void start(Stage primaryStage) {
+        ps = primaryStage;
         try{
             gc.setStroke(Color.BLACK); 
             gc.setLineWidth(5); 
@@ -88,15 +96,11 @@ public class Whiteboard extends Application{
             scene.setOnMouseDragged(e->{
                 gc.lineTo(e.getSceneX(), e.getSceneY());
                 out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY()); 
-                ///code for log
-                System.out.println("x: " + e.getSceneX() + "y: " + e.getSceneY());     
-                ///
                 gc.stroke();
             });
-            //until here
             
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            ps.setScene(scene);
+            ps.show();
 
             pane.getChildren().add(canvas);
         }
@@ -132,9 +136,38 @@ public class Whiteboard extends Application{
                 //Optional<ButtonType> result = alert.showAndWait();
             });
         }
-        else{ //enable guessing functionality
+        else{ 
+            Platform.runLater(() ->{ 
+                Label label = new Label("Name:");
+                tf = new TextField(); 
+                Button submit = new Button("Guess!");
+                submit.setOnAction(e -> updateGuesses());
 
+                guessCount.setX(100); 
+                guessCount.setY(100);
+
+                pane.getChildren().addAll(label, tf, submit, guessCount);
+
+            });
+            
+        
         }
 
+
+    }
+
+    public void updateGuesses(){
+        Platform.runLater(() ->{ 
+                        
+            if(!(getWord().equals(tf.getText()))){
+                guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+            }
+            else{
+                Closing closing = new Closing();
+                closing.start(ps);
+            }
+                   
+
+        });
     }
 }

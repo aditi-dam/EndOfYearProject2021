@@ -6,9 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.stream.Stream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 
 import javafx.application.Application;
@@ -16,10 +14,6 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -31,6 +25,7 @@ public class Client extends Application {
     public static Canvas canvas = new Canvas(800, 500); 
     public static GraphicsContext gc = canvas.getGraphicsContext2D();
     public static Whiteboard w;
+    public Welcome welcome = new Welcome(this);
 
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
@@ -68,9 +63,12 @@ public class Client extends Application {
     }
 
     public void start(Stage primaryStage) {
+        welcome.start(primaryStage);
+
+    }
+    public void startWhiteboard(Stage primaryStage){
         w.start(primaryStage);
     }
-
     static class ServerListener implements Runnable {
 
         public void run() {
@@ -90,6 +88,7 @@ public class Client extends Application {
                     else if(incoming.startsWith("START")){
                         playerNum = 2;
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
+                        w.pictionary(playerNum); //for text field to appeaar
                     }
 
                 }
@@ -127,8 +126,7 @@ public class Client extends Application {
                             word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
 
                             Whiteboard.setWord(word);
-                            w.pictionary(playerNum);
-                            // Platform.runLater(arg0); Needs a runnable as a parameter
+                            w.pictionary(playerNum); //for word to appear on player side
 
                             out.println("START" + word);
                         }
@@ -138,15 +136,6 @@ public class Client extends Application {
                     }     
                 }
                 //https://stackoverflow.com/questions/2312756/how-to-read-a-specific-line-using-the-specific-line-number-from-a-file-in-java
-                 
-                else if(playerNum % 2 == 0){
-                    if(line.equals(Whiteboard.getWord().toLowerCase().trim())){
-                        System.out.println("YOU GOT IT");
-                    }
-                    else{
-                        System.out.println("KEEP TRYING");
-                    }
-                }
                 
                 out.println(line);
                 line = userInput.nextLine().trim();
