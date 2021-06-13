@@ -40,6 +40,7 @@ public class Whiteboard extends Application{
     private static String word = "";
     private int guesses = 0;
     private Text guessCount = new Text();
+    private Stage ps;
 
 
     public static String getWord() {
@@ -59,6 +60,7 @@ public class Whiteboard extends Application{
     }
 
     public void start(Stage primaryStage) {
+        ps = primaryStage;
         try{
             gc.setStroke(Color.BLACK); 
             gc.setLineWidth(5); 
@@ -97,8 +99,8 @@ public class Whiteboard extends Application{
                 gc.stroke();
             });
             
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            ps.setScene(scene);
+            ps.show();
 
             pane.getChildren().add(canvas);
         }
@@ -159,6 +161,10 @@ public class Whiteboard extends Application{
                         
             if(!(getWord().equals(tf.getText()))){
                 guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+            }
+            else{
+                Closing closing = new Closing();
+                closing.start(ps);
             }
                    
 
