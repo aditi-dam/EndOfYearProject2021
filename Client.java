@@ -1,19 +1,21 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.nio.file.Files;
-
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -69,6 +71,23 @@ public class Client extends Application {
     public void startWhiteboard(Stage primaryStage){
         w.start(primaryStage);
     }
+    public void openDirections() {
+        Platform.runLater(()->{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Instructions");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.setResizable(true);
+
+            alert.setHeaderText("Welcome to our Collaborative Whiteboard!");
+            alert.setContentText("If you'd like to play a game of Pictionary, just click the 'PLAY!' button.\nIf there are other clients on the whiteboard, then the game will start.\nYou can also click the 'Whiteboard' button for free drawing.\nType '/quit' in the terminal to quit.\nHave fun!");
+
+            ButtonType close = new ButtonType("Close");
+            alert.getButtonTypes().setAll(close);
+
+            alert.showAndWait();
+        });
+    }
+
     static class ServerListener implements Runnable {
 
         public void run() {
@@ -107,16 +126,7 @@ public class Client extends Application {
         
             while (!line.equals("/quit")) {
                 
-                if (line.toLowerCase().equals("/directions")) {
-                    // print directions
-                    System.out.println("Welcome to our Collaborative Whiteboard!");
-                    System.out.println("If you'd like to play a game of Pictionary, type in /pictionary.");
-                    System.out.println("If there are other clients on the whiteboard, then the game will start.");
-                    System.out.println("You can also type in /whiteboard just for free drawing.");
-                    System.out.println("To quit, type in /quit.");
-                    System.out.println("Have fun!");
-                }
-                else if (line.toLowerCase().equals("/pictionary")) {
+                if (line.toLowerCase().equals("/pictionary")) {
                     String word = "";
                     try{
                         if (playerNum == -1){
