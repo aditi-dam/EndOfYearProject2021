@@ -89,6 +89,7 @@ public class Client extends Application {
                     else if(incoming.startsWith("START")){
                         playerNum = 2;
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
+                        w.pictionary(playerNum); //for text field to appeaar
                     }
 
                 }
@@ -126,7 +127,7 @@ public class Client extends Application {
                             word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
 
                             Whiteboard.setWord(word);
-                            w.pictionary(playerNum);
+                            w.pictionary(playerNum); //for word to appear on player side
 
                             out.println("START" + word);
                         }
@@ -142,7 +143,7 @@ public class Client extends Application {
                         System.out.println("YOU GOT IT");
                     }
                     else{
-                        System.out.println("KEEP TRYING");
+                        //check if things are equal
                     }
                 }
                 

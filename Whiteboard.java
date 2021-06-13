@@ -13,8 +13,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -88,12 +90,8 @@ public class Whiteboard extends Application{
             scene.setOnMouseDragged(e->{
                 gc.lineTo(e.getSceneX(), e.getSceneY());
                 out.println("COORDINATE: " + "x" + e.getSceneX() + "y" + e.getSceneY()); 
-                ///code for log
-                System.out.println("x: " + e.getSceneX() + "y: " + e.getSceneY());     
-                ///
                 gc.stroke();
             });
-            //until here
             
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -132,9 +130,24 @@ public class Whiteboard extends Application{
                 //Optional<ButtonType> result = alert.showAndWait();
             });
         }
-        else{ //enable guessing functionality
-
+        else{ 
+            Platform.runLater(() ->{ 
+                Label label = new Label("Name:");
+                TextField tf = new TextField(); 
+                pane.getChildren().addAll(label, tf);
+            });
+            
+        
         }
+        /*
+        Platform.runLater(() ->{ 
+                Text word = new Text();
+                word.setText("Keep Trying");
+                word.setX(50); 
+                word.setY(50);
+                pane.getChildren().add(word); 
+            });
+            */
 
     }
 }
