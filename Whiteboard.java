@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -26,16 +27,19 @@ import javafx.stage.Stage;
 
 public class Whiteboard extends Application{
 
-    private static Canvas canvas = new Canvas(800, 500); 
-    private static GraphicsContext gc; 
-    private static ColorPicker cp = new ColorPicker();
-    private static Slider slider = new Slider();
-    private static Label label = new Label("1.0");
-    private static PrintWriter out;
-    private static Scene scene;
-    private static Pane pane;
-    private static GridPane grid = new GridPane();
+    private Canvas canvas = new Canvas(800, 500); 
+    private GraphicsContext gc; 
+    private ColorPicker cp = new ColorPicker();
+    private Slider slider = new Slider();
+    private Label label = new Label("1.0");
+    private PrintWriter out;
+    private Scene scene;
+    private Pane pane;
+    private GridPane grid = new GridPane();
+    private TextField tf;
     private static String word = "";
+    private int guesses = 0;
+    private Text guessCount = new Text();
 
 
     public static String getWord() {
@@ -133,21 +137,31 @@ public class Whiteboard extends Application{
         else{ 
             Platform.runLater(() ->{ 
                 Label label = new Label("Name:");
-                TextField tf = new TextField(); 
-                pane.getChildren().addAll(label, tf);
+                tf = new TextField(); 
+                Button submit = new Button("Guess!");
+                submit.setOnAction(e -> updateGuesses());
+
+                guessCount.setX(100); 
+                guessCount.setY(100);
+
+                pane.getChildren().addAll(label, tf, submit, guessCount);
+
             });
             
         
         }
-        /*
-        Platform.runLater(() ->{ 
-                Text word = new Text();
-                word.setText("Keep Trying");
-                word.setX(50); 
-                word.setY(50);
-                pane.getChildren().add(word); 
-            });
-            */
 
+
+    }
+
+    public void updateGuesses(){
+        Platform.runLater(() ->{ 
+                        
+            if(!(getWord().equals(tf.getText()))){
+                guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+            }
+                   
+
+        });
     }
 }
