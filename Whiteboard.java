@@ -1,5 +1,4 @@
 import java.io.PrintWriter;
-import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,7 +16,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
