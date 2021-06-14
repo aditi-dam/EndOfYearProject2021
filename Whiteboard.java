@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -127,8 +129,12 @@ public class Whiteboard extends Application{
     public void updateGuesses(){
         Platform.runLater(() ->{ 
                         
-            if(!(getWord().equals(tf.getText()))){
+            if(!(getWord().equals(tf.getText())) && (guesses < 7)){
                 guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+            }
+            else if(guesses >= 7){
+                Losing losing = new Losing();
+                losing.start(ps);
             }
             else{
                 Closing closing = new Closing();
