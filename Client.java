@@ -1,25 +1,21 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.stream.Stream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -31,6 +27,7 @@ public class Client extends Application {
     public static Canvas canvas = new Canvas(800, 500); 
     public static GraphicsContext gc = canvas.getGraphicsContext2D();
     public static Whiteboard w;
+    public Welcome welcome = new Welcome(this);
 
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
@@ -68,7 +65,27 @@ public class Client extends Application {
     }
 
     public void start(Stage primaryStage) {
+        welcome.start(primaryStage);
+
+    }
+    public void startWhiteboard(Stage primaryStage){
         w.start(primaryStage);
+    }
+    public void openDirections() {
+        Platform.runLater(()->{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Instructions");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.setResizable(true);
+
+            alert.setHeaderText("Welcome to our Collaborative Whiteboard!");
+            alert.setContentText("If you'd like to play a game of Pictionary, just click the 'PLAY!' button.\nIf there are other clients on the whiteboard, then the game will start.\nYou can also click the 'Whiteboard' button for free drawing.\nType '/quit' in the terminal to quit.\nHave fun!");
+
+            ButtonType close = new ButtonType("Close");
+            alert.getButtonTypes().setAll(close);
+
+            alert.showAndWait();
+        });
     }
 
     static class ServerListener implements Runnable {
@@ -90,6 +107,7 @@ public class Client extends Application {
                     else if(incoming.startsWith("START")){
                         playerNum = 2;
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
+                        w.pictionary(playerNum); //for text field to appeaar
                     }
 
                 }
@@ -108,16 +126,7 @@ public class Client extends Application {
         
             while (!line.equals("/quit")) {
                 
-                if (line.toLowerCase().equals("/directions")) {
-                    // print directions
-                    System.out.println("Welcome to our Collaborative Whiteboard!");
-                    System.out.println("If you'd like to play a game of Pictionary, type in /pictionary.");
-                    System.out.println("If there are other clients on the whiteboard, then the game will start.");
-                    System.out.println("You can also type in /whiteboard just for free drawing.");
-                    System.out.println("To quit, type in /quit.");
-                    System.out.println("Have fun!");
-                }
-                else if (line.toLowerCase().equals("/pictionary")) {
+                if (line.toLowerCase().equals("/pictionary")) {
                     String word = "";
                     try{
                         if (playerNum == -1){
@@ -125,11 +134,14 @@ public class Client extends Application {
 
                             int randomWord = (int) (Math.random() * "pictionary_idea.txt".length());
                             word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
-                            System.out.println(word); //for now, later show it on the board
 
                             Whiteboard.setWord(word);
+<<<<<<< HEAD
                             w.pictionary(playerNum);
                             // Platform.runLater(arg0); Needs a runnable as a parameter
+=======
+                            w.pictionary(playerNum); //for word to appear on player side
+>>>>>>> 22b97577e95278285b1bc1e1c3dd276a58484f3e
 
                             out.println("START" + word);
                         }
@@ -139,15 +151,6 @@ public class Client extends Application {
                     }     
                 }
                 //https://stackoverflow.com/questions/2312756/how-to-read-a-specific-line-using-the-specific-line-number-from-a-file-in-java
-                 
-                else if(playerNum % 2 == 0){
-                    if(line.equals(Whiteboard.getWord().toLowerCase().trim())){
-                        System.out.println("YOU GOT IT");
-                    }
-                    else{
-                        System.out.println("KEEP TRYING");
-                    }
-                }
                 
                 out.println(line);
                 line = userInput.nextLine().trim();
