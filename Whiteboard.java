@@ -157,8 +157,12 @@ public class Whiteboard extends Application{
     public void updateGuesses(){
         Platform.runLater(() ->{ 
                         
-            if(!(getWord().equals(tf.getText()))){
+            if(!(getWord().equals(tf.getText())) && (guesses < 7)){
                 guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+            }
+            else if(guesses >= 7){
+                Losing losing = new Losing();
+                losing.start(ps);
             }
             else{
                 Closing closing = new Closing();
