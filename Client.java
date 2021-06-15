@@ -33,6 +33,7 @@ public class Client extends Application {
     public static StackPane pane = new StackPane();
     public static Scene scene = new Scene(pane, 800, 500);
     public static Scanner userInput = new Scanner(System.in);
+    private static Stage ps;
     
     private static int playerNum = -1;
 
@@ -66,11 +67,13 @@ public class Client extends Application {
     }
 
     public void start(Stage primaryStage) {
-        welcome.start(primaryStage);
+        ps = primaryStage;
+        welcome.start(ps);
 
     }
     public void startWhiteboard(Stage primaryStage){
-        w.start(primaryStage);
+        ps = primaryStage;
+        w.start(ps);
     }
     public void openDirections() {
         Platform.runLater(()->{
@@ -112,6 +115,14 @@ public class Client extends Application {
                         playerNum = 2;
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
                         w.pictionary(playerNum); //for text field to appeaar
+                    }
+                    else if(incoming.startsWith("WON")){
+                        Closing closing = new Closing("THEY GUESSED IT!!!");
+                        closing.start(ps);
+                    }
+                    else if(incoming.startsWith("LOST")){
+                        Closing closing = new Closing("You're not very good at drawing... are you?");
+                        closing.start(ps);
                     }
 
                 }

@@ -93,6 +93,7 @@ public class Server {
                     else if(incoming.startsWith("START")){
                         broadcast(incoming, cd);
                     }
+
                 }
 
             }
