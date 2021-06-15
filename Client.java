@@ -134,14 +134,8 @@ public class Client extends Application {
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
                         w.pictionary(playerNum); //for text field to appeaar
                     }
-                    else if(incoming.startsWith("WON")){
-                        System.out.println("here");
-                        Closing closing = new Closing("THEY GUESSED IT!!!");
-                        closing.start(ps);
-                    }
-                    else if(incoming.startsWith("LOST")){
-                        System.out.println("here2");
-                        Closing closing = new Closing("You're not very good at drawing... are you?");
+                    else if(incoming.startsWith("CLOSE")){
+                        Closing closing = new Closing("closing");
                         closing.start(ps);
                     }
 

@@ -93,6 +93,13 @@ public class Server {
                     else if(incoming.startsWith("START")){
                         broadcast(incoming, cd);
                     }
+                    if(incoming.startsWith("INCREMENT")){
+                        for(ClientData c : clientList){
+                            c.getOut().println("CLOSE"); 
+                            c.getOut().flush();
+                            
+                        }
+                    }
 
                 }
 

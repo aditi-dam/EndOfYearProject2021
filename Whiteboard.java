@@ -173,6 +173,7 @@ public class Whiteboard extends Application{
                         
             if(!(getWord().equals(tf.getText())) && (guess.getGuesses() < 7)){
                 guess.setGuesses(guess.getGuesses() + 1);
+                out.println("INCREMENT");
                 guessCount.setText("Keep Trying! Guesses: " + (guess.getGuesses()));
             }
             else if(guess.getGuesses() >= 7){
