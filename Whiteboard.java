@@ -173,7 +173,7 @@ public class Whiteboard extends Application{
                 h2.setPadding(new Insets(5,5,5,5));
 
 
-                submit.setAlignment(Pos.CENTER_RIGHT);
+                submit.setAlignment(Pos.CENTER);
                 submit.setOnAction(e -> updateGuesses());
 
                 
