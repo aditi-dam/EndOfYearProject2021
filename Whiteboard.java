@@ -11,11 +11,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -120,6 +122,9 @@ public class Whiteboard extends Application{
                 alert.setTitle("YOUR WORD IS:");
                 alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.setResizable(true);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(
+                getClass().getResource("word.css").toExternalForm());
 
                 alert.setHeaderText("");
                 alert.setContentText(getWord());
@@ -135,7 +140,18 @@ public class Whiteboard extends Application{
             Platform.runLater(() ->{ 
                 Label label = new Label("Name:");
                 tf = new TextField(); 
+
+                HBox hbButtons = new HBox();
+                
                 Button submit = new Button("Guess!");
+
+                hbButtons.getChildren().add(label);
+                hbButtons.getChildren().add(tf);
+                hbButtons.getChildren().add(submit);
+                hbButtons.setAlignment(Pos.CENTER_RIGHT);
+
+
+                submit.setAlignment(Pos.CENTER_RIGHT);
                 submit.setOnAction(e -> updateGuesses());
 
                 guessCount.setX(100); 
