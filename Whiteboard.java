@@ -147,6 +147,7 @@ public class Whiteboard extends Application{
                 
                 tf = new TextField(); 
                 tf.setPrefWidth(100);
+                tf.setAlignment(Pos.BOTTOM_LEFT);
                 
                 
                 Button submit = new Button("Guess!");
@@ -158,16 +159,18 @@ public class Whiteboard extends Application{
                 HBox h1 = new HBox();
 
                 HBox h2 = new HBox();
+
+            
              
-                h.getChildren().add(tf);
-                h1.getChildren().add(submit);
-                h2.getChildren().add(guessCount);
-                h.setAlignment(Pos.BOTTOM_LEFT);
-                h1.setAlignment(Pos.BOTTOM_LEFT);
-                h2.setAlignment(Pos.TOP_RIGHT);
-                h.setPadding(new Insets(5,5,5,5));
-                h1.setPadding(new Insets(5,5,5,5));
-                h2.setPadding(new Insets(5,5,5,5));
+                //h.getChildren().add(tf);
+                // h1.getChildren().add(submit);
+                // h2.getChildren().add(guessCount);
+                // h.setAlignment(Pos.BOTTOM_LEFT);
+                // h1.setAlignment(Pos.BOTTOM_LEFT);
+                // h2.setAlignment(Pos.TOP_RIGHT);
+                // h.setPadding(new Insets(5,5,5,5));
+                // h1.setPadding(new Insets(5,5,5,5));
+                // h2.setPadding(new Insets(5,5,5,5));
 
 
                 submit.setAlignment(Pos.CENTER_RIGHT);
