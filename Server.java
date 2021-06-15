@@ -95,9 +95,15 @@ public class Server {
                     }
                     else if(incoming.startsWith("WON")){
                         System.out.println("YES");
+                        broadcast(incoming, cd);
                     }
                     else if(incoming.startsWith("LOST")){
                         System.out.println("YES");
+                        broadcast(incoming, cd);
+                    }
+                    else{
+                        System.out.println("here");
+                        broadcast(incoming, cd);
                     }
 
                 }
