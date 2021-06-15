@@ -18,6 +18,8 @@ public class Closing extends Application{
         Button startGame = new Button("YOU WIN!");
 
         Scene scene = new Scene(startGame, 200, 250);
+        scene.getStylesheets().add(
+            getClass().getResource("closing.css").toExternalForm());
         ps.setTitle("Winning Screen");
         ps.setScene(scene);
         ps.show();
