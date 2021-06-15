@@ -106,7 +106,7 @@ public class Whiteboard extends Application{
             ps.show();
             HBox h = new HBox(10);
             h.getChildren().add(username);
-            h.setAlignment(Pos.TOP_LEFT);
+            h.setAlignment(Pos.BOTTOM_LEFT);
             h.setPadding(new Insets(5,5,5,5));
             username.setFont(Font.font("Verdana",20));
             pane.getChildren().addAll(canvas,h);
@@ -114,9 +114,9 @@ public class Whiteboard extends Application{
             HBox h1 = new HBox(10);
             tf = new TextField(); 
             // tf.setPrefWidth(100);
-            tf.setAlignment(Pos.BOTTOM_LEFT);
+            tf.setAlignment(Pos.TOP_RIGHT);
             submit = new Button("Guess!");
-            submit.setAlignment(Pos.BOTTOM_RIGHT);
+            submit.setAlignment(Pos.TOP_LEFT);
             // submit.setPrefWidth(100);
             h1.getChildren().addAll(tf, submit);
             h1.setAlignment(Pos.BOTTOM_LEFT);
