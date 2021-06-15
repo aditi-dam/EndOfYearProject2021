@@ -35,6 +35,7 @@ public class Client extends Application {
     public static Scanner userInput = new Scanner(System.in);
     private static Stage ps;
     
+    private static Guess guess = new Guess(0);
     private static int playerNum = -1;
 
     public static void main(String[] args) throws Exception {
@@ -50,7 +51,7 @@ public class Client extends Application {
         socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
-        w = new Whiteboard(out, scene, pane, gc, canvas);
+        w = new Whiteboard(out, scene, pane, gc, canvas, guess);
 
         ServerListener listener = new ServerListener();
         Thread t = new Thread(listener);
@@ -61,6 +62,9 @@ public class Client extends Application {
 
         Thread client = new Thread(new ClientListener());
         client.start();
+
+        Thread guess = new Thread(new GuessListener());
+        guess.start();
 
         Application.launch(args);
 
@@ -95,6 +99,19 @@ public class Client extends Application {
         });
     }
 
+    static class GuessListener implements Runnable{
+        public void run(){
+            while(guess.getGuesses() < 7){
+            }
+
+            Platform.runLater(()->{
+                Closing closing = new Closing("closing");
+                closing.start(ps);
+            });
+            
+        }
+    }
+
     static class ServerListener implements Runnable {
 
         public void run() {
@@ -112,15 +129,18 @@ public class Client extends Application {
                         w.draw(incoming);
                     }
                     else if(incoming.startsWith("START")){
+                        System.out.println("here3");
                         playerNum = 2;
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
                         w.pictionary(playerNum); //for text field to appeaar
                     }
                     else if(incoming.startsWith("WON")){
+                        System.out.println("here");
                         Closing closing = new Closing("THEY GUESSED IT!!!");
                         closing.start(ps);
                     }
                     else if(incoming.startsWith("LOST")){
+                        System.out.println("here2");
                         Closing closing = new Closing("You're not very good at drawing... are you?");
                         closing.start(ps);
                     }
@@ -158,8 +178,10 @@ public class Client extends Application {
                     }
                     catch (IOException e) {
                         e.printStackTrace();
-                    }     
+                    }   
+                    
                 }
+            
                 //https://stackoverflow.com/questions/2312756/how-to-read-a-specific-line-using-the-specific-line-number-from-a-file-in-java
                 
                 out.println(line);

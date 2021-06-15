@@ -38,9 +38,9 @@ public class Whiteboard extends Application{
     private GridPane grid = new GridPane();
     private TextField tf;
     private static String word = "";
-    private int guesses = 0;
     private Text guessCount = new Text();
     private Stage ps;
+    private Guess guess;
 
 
     public static String getWord() {
@@ -51,12 +51,13 @@ public class Whiteboard extends Application{
         Whiteboard.word = word;
     }
 
-    public Whiteboard(PrintWriter o, Scene s, Pane p, GraphicsContext g, Canvas c){
+    public Whiteboard(PrintWriter o, Scene s, Pane p, GraphicsContext g, Canvas c, Guess gu){
         out = o;
         scene = s;
         pane = p;
         gc = g;
         canvas = c;
+        guess = gu;
     }
 
     public void start(Stage primaryStage) {
@@ -170,10 +171,11 @@ public class Whiteboard extends Application{
     public void updateGuesses(){
         Platform.runLater(() ->{ 
                         
-            if(!(getWord().equals(tf.getText())) && (guesses < 7)){
-                guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+            if(!(getWord().equals(tf.getText())) && (guess.getGuesses() < 7)){
+                guess.setGuesses(guess.getGuesses() + 1);
+                guessCount.setText("Keep Trying! Guesses: " + (guess.getGuesses()));
             }
-            else if(guesses >= 7){
+            else if(guess.getGuesses() >= 7){
                 Closing closing = new Closing("YOU LOST :(");
                 closing.start(ps);
                 
