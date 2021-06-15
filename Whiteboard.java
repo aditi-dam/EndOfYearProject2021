@@ -153,7 +153,6 @@ public class Whiteboard extends Application{
                 Button submit = new Button("Guess!");
                 submit.setPrefWidth(100);
                 
-
                 HBox h = new HBox(10);
              
                 h.getChildren().add(tf);
@@ -188,7 +187,7 @@ public class Whiteboard extends Application{
         Platform.runLater(() ->{ 
                         
             if(!(getWord().equals(tf.getText())) && (guesses < 7)){
-                label1.setText("Keep Trying! Guesses: " + (++guesses));
+                tf.setText("Keep Trying! Guesses: " + (++guesses));
             }
             else if(guesses >= 7){
                 out.println("WON");
