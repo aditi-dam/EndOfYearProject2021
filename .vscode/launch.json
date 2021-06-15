@@ -2,6 +2,10 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+    // Just gonna leave this here for when it inevitably disappears and I have to replace it
+    // "vmArgs": "--module-path \"C:\\javafx-sdk-11.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
+
     "version": "0.2.0",
     "configurations": [
         {
@@ -37,8 +41,8 @@
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "vmArgs": "--module-path \"/Users/aparnarenjithpillai/Desktop/Java/javafx-sdk-11.0.2/lib\" --add-modules javafx.controls,javafx.fxml"
-    
+            "vmArgs": "--module-path \"/Users/aparnarenjithpillai/Desktop/Java/javafx-sdk-11.0.2/lib\" --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path \"C:\\javafx-sdk-11.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
