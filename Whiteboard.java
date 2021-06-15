@@ -111,10 +111,6 @@ public class Whiteboard extends Application{
                 tf = new TextField(); 
                 Button submit = new Button("Guess!");
                 submit.setOnAction(e -> updateGuesses());
-                tf.setTextFormatter(new TextFormatter<>((change) -> {
-                    change.setText(change.getText().toLowerCase());
-                    return change;
-                }));
                 guessCount.setX(100); 
                 guessCount.setY(100);
 
