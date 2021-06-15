@@ -102,9 +102,10 @@ public class Whiteboard extends Application{
             
             ps.setScene(scene);
             ps.show();
-            username.setX(100); 
-            username.setY(100);
-            pane.getChildren().addAll(canvas, username);
+            HBox h = new HBox();
+            h.getChildren().add(username);
+            h.setAlignment(Pos.TOP_LEFT);
+            pane.getChildren().addAll(canvas, h);
         }
         catch(Exception e){
             e.printStackTrace();
