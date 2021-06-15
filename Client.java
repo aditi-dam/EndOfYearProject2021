@@ -110,6 +110,7 @@ public class Client extends Application {
                     }
                     else if(incoming.startsWith("COORDINATE")){
                         w.draw(incoming);
+                        System.out.println("coordinate received");
                     }
                     else if(incoming.startsWith("START")){
                         playerNum = 2;
@@ -117,10 +118,12 @@ public class Client extends Application {
                         w.pictionary(playerNum); //for text field to appeaar
                     }
                     else if(incoming.startsWith("WON")){
+                        System.out.println("won received");
                         Closing closing = new Closing("THEY GUESSED IT!!!");
                         closing.start(ps);
                     }
                     else if(incoming.startsWith("LOST")){
+                        System.out.println("loss received");
                         Closing closing = new Closing("You're not very good at drawing... are you?");
                         closing.start(ps);
                     }
