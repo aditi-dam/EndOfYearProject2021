@@ -102,8 +102,9 @@ public class Whiteboard extends Application{
             
             ps.setScene(scene);
             ps.show();
-
-            pane.getChildren().add(canvas);
+            username.setX(100); 
+            username.setY(100);
+            pane.getChildren().addAll(canvas, username);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -158,10 +159,9 @@ public class Whiteboard extends Application{
                 guessCount.setX(100); 
                 guessCount.setY(100);
 
-                username.setX(100); 
-                username.setY(100);
 
-                pane.getChildren().addAll(label, tf, submit, guessCount,username);
+
+                pane.getChildren().addAll(label, tf, submit, guessCount);
 
             });
             
