@@ -113,11 +113,11 @@ public class Whiteboard extends Application{
 
             HBox h1 = new HBox(10);
             tf = new TextField(); 
-            // tf.setPrefWidth(100);
+            tf.setPrefWidth(20);
             tf.setAlignment(Pos.TOP_RIGHT);
             submit = new Button("Guess!");
             submit.setAlignment(Pos.TOP_LEFT);
-            // submit.setPrefWidth(100);
+            submit.setPrefWidth(20);
             h1.getChildren().addAll(tf, submit);
             h1.setAlignment(Pos.BOTTOM_LEFT);
             h1.setPadding(new Insets(5,5,5,5));
