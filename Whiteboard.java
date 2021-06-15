@@ -108,8 +108,8 @@ public class Whiteboard extends Application{
             h.getChildren().addAll(username,guess);
             h.setAlignment(Pos.TOP_LEFT);
             h.setPadding(new Insets(5,5,5,5));
-            username.setFont(Font.font("Verdana",50));
-            guess.setFont(Font.font("Verdana",50));
+            username.setFont(Font.font("Verdana",35));
+            guess.setFont(Font.font("Verdana",25));
             pane.getChildren().addAll(canvas,h);
         }
         catch(Exception e){
@@ -196,7 +196,7 @@ public class Whiteboard extends Application{
         Platform.runLater(() ->{ 
                         
             if(!(getWord().equals(tf.getText())) && (guesses < 7)){
-                guess.setText("Keep Trying! Guesses: " + (++guesses));
+                guess.setText("\nKeep Trying! Guesses: " + (++guesses));
             }
             else if(guesses >= 7){
                 out.println("WON");
