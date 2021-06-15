@@ -155,9 +155,6 @@ public class Whiteboard extends Application{
 
                 HBox h = new HBox(10);
 
-                guessCount.setX(100); 
-                guessCount.setY(100);
-
                 HBox h1 = new HBox();
 
                 HBox h2 = new HBox();
