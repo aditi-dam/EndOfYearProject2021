@@ -43,7 +43,6 @@ public class Whiteboard extends Application{
     private Text guessCount = new Text();
     private Text username = new Text();
     private Stage ps;
-    private Label label1;
 
 
     public static String getWord() {
@@ -153,15 +152,23 @@ public class Whiteboard extends Application{
                 Button submit = new Button("Guess!");
                 submit.setPrefWidth(100);
                 
+
                 HBox h = new HBox(10);
+
+
+                HBox h1 = new HBox();
+
+                HBox h2 = new HBox();
              
                 h.getChildren().add(tf);
-                h.getChildren().add(submit);
-                h.getChildren().add(guessCount);
-                h.getChildren().addAll(tf,submit,guessCount,label1);
+                h1.getChildren().add(submit);
+                h2.getChildren().add(guessCount);
                 h.setAlignment(Pos.BOTTOM_LEFT);
-
+                h1.setAlignment(Pos.BOTTOM_LEFT);
+                h2.setAlignment(Pos.TOP_RIGHT);
                 h.setPadding(new Insets(5,5,5,5));
+                h1.setPadding(new Insets(5,5,5,5));
+                h2.setPadding(new Insets(5,5,5,5));
 
 
                 submit.setAlignment(Pos.CENTER_RIGHT);
@@ -187,7 +194,7 @@ public class Whiteboard extends Application{
         Platform.runLater(() ->{ 
                         
             if(!(getWord().equals(tf.getText())) && (guesses < 7)){
-                tf.setText("Keep Trying! Guesses: " + (++guesses));
+                guessCount.setText("Keep Trying! Guesses: " + (++guesses));
             }
             else if(guesses >= 7){
                 out.println("WON");
