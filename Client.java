@@ -58,6 +58,7 @@ public class Client extends Application {
         System.out.println("Enter your username.");
         String userName = userInput.nextLine();
         out.println(userName);
+        w.setUserName(userName);
 
         Thread client = new Thread(new ClientListener());
         client.start();
