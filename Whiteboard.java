@@ -109,6 +109,17 @@ public class Whiteboard extends Application{
             h.setPadding(new Insets(5,5,5,5));
             username.setFont(Font.font("Verdana",20));
             pane.getChildren().addAll(canvas,h);
+
+            HBox h1 = new HBox(10);
+            tf = new TextField(); 
+            // tf.setPrefWidth(100);
+            tf.setAlignment(Pos.BOTTOM_LEFT);
+            Button submit = new Button("Guess!");
+            submit.setAlignment(Pos.BOTTOM_RIGHT);
+            // submit.setPrefWidth(100);
+            h1.getChildren().addAll(tf, submit);
+            h1.setAlignment(Pos.BOTTOM_LEFT);
+            h1.setPadding(new Insets(5,5,5,5));
         }
         catch(Exception e){
             e.printStackTrace();
@@ -145,9 +156,6 @@ public class Whiteboard extends Application{
         else{ 
             Platform.runLater(() ->{ 
                 
-                tf = new TextField(); 
-                // tf.setPrefWidth(100);
-                tf.setAlignment(Pos.BOTTOM_LEFT);
                 
                 
                 // Button submit = new Button("Guess!");
