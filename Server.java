@@ -93,9 +93,6 @@ public class Server {
                     else if(incoming.startsWith("START")){
                         broadcast(incoming, cd);
                     }
-                    else{
-                        System.out.println("message");
-                    }
 
                 }
 
