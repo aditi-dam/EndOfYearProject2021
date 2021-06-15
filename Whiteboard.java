@@ -38,6 +38,7 @@ public class Whiteboard extends Application{
     private Pane pane;
     private GridPane grid = new GridPane();
     private TextField tf;
+    private Button submit;
     private static String word = "";
     private int guesses = 0;
     private Text guessCount = new Text();
@@ -114,7 +115,7 @@ public class Whiteboard extends Application{
             tf = new TextField(); 
             // tf.setPrefWidth(100);
             tf.setAlignment(Pos.BOTTOM_LEFT);
-            Button submit = new Button("Guess!");
+            submit = new Button("Guess!");
             submit.setAlignment(Pos.BOTTOM_RIGHT);
             // submit.setPrefWidth(100);
             h1.getChildren().addAll(tf, submit);
@@ -185,7 +186,7 @@ public class Whiteboard extends Application{
                 // submit.setOnAction(e -> updateGuesses());
 
                 
-                pane.getChildren().addAll( tf);
+                pane.getChildren().addAll(tf, submit);
                 //pane.getChildren().addAll(label, tf, submit, guessCount);
 
             });
