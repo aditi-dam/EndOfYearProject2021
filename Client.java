@@ -83,7 +83,7 @@ public class Client extends Application {
             getClass().getResource("instructions.css").toExternalForm());
 
             alert.setHeaderText("Welcome to our Collaborative Whiteboard!");
-            alert.setContentText("If you'd like to play a game of Pictionary, just click the 'PLAY!' button.\nIf there are other clients on the whiteboard, then the game will start.\nYou can also click the 'Whiteboard' button for free drawing.\nType '/quit' in the terminal to quit.\nHave fun!");
+            alert.setContentText("If you'd like to play a game of Pictionary, just click the 'WHITEBOARD!' button.\nOnce you are at the whiteboard, if you type /pictionary into the terminal, player 1 will get a word.\nPlayer 2 needs to guess what the word is based on player 1's drawing.\nType '/quit' in the terminal to quit.\nHave fun and good luck!");
 
             ButtonType close = new ButtonType("Close");
             alert.getButtonTypes().setAll(close);

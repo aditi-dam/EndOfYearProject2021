@@ -62,7 +62,7 @@ public class Welcome extends Application {
         showDirections.setMaxSize(200, 200);
         showDirections.setOnAction(e -> openDirections());
         
-        Button startGame = new Button("PLAY!");
+        Button startGame = new Button("WHITEBOARD!");
         showDirections.setFont(Font.font("Phosphate", 20));
         startGame.setMaxSize(200, 200);
         startGame.setOnAction(e -> openGame());

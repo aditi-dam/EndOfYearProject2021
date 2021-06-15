@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -112,7 +113,10 @@ public class Whiteboard extends Application{
                 tf = new TextField(); 
                 Button submit = new Button("Guess!");
                 submit.setOnAction(e -> updateGuesses());
-
+                tf.setTextFormatter(new TextFormatter<>((change) -> {
+                    change.setText(change.getText().toLowerCase());
+                    return change;
+                }));
                 guessCount.setX(100); 
                 guessCount.setY(100);
 
