@@ -15,6 +15,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -77,9 +78,12 @@ public class Client extends Application {
             alert.setTitle("Instructions");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.setResizable(true);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(
+            getClass().getResource("instructions.css").toExternalForm());
 
             alert.setHeaderText("Welcome to our Collaborative Whiteboard!");
-            alert.setContentText("If you'd like to play a game of Pictionary, just click the 'PLAY!' button.\nIf there are other clients on the whiteboard, then the game will start.\nClose the whiteboard and type '/quit' in the terminal to quit.\nHave fun!");
+            alert.setContentText("If you'd like to play a game of Pictionary, just click the 'PLAY!' button.\nIf there are other clients on the whiteboard, then the game will start.\nYou can also click the 'Whiteboard' button for free drawing.\nType '/quit' in the terminal to quit.\nHave fun!");
 
             ButtonType close = new ButtonType("Close");
             alert.getButtonTypes().setAll(close);

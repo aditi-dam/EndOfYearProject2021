@@ -1,0 +1,20 @@
+.dialog-pane {
+    -fx-background-color: black;
+    -fx-border-color: linear-gradient(green, yellow);
+    -fx-border-width: 3;
+}
+ 
+.dialog-pane .label {
+    -fx-text-fill: purple;
+}
+ 
+.dialog-pane:header .header-panel {
+    -fx-background-color: black;
+    -fx-text-color: purple;
+    -fx-border-color: linear-gradient(green, yellow);
+}
+ 
+.button {
+    -fx-background-color: linear-gradient(to right, yellow, green);
+    -fx-font-color: purple;
+}
