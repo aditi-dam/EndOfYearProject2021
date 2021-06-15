@@ -42,6 +42,7 @@ public class Whiteboard extends Application{
     private int guesses = 0;
     private Text guessCount = new Text();
     private Text username = new Text();
+    private Text guess = new Text();
     private Stage ps;
 
 
@@ -104,10 +105,11 @@ public class Whiteboard extends Application{
             ps.setScene(scene);
             ps.show();
             HBox h = new HBox(10);
-            h.getChildren().add(username);
+            h.getChildren().addAll(username,guess);
             h.setAlignment(Pos.TOP_LEFT);
             h.setPadding(new Insets(5,5,5,5));
-            username.setFont(Font.font("Verdana",20));
+            username.setFont(Font.font("Verdana",50));
+            guess.setFont(Font.font("Verdana",50));
             pane.getChildren().addAll(canvas,h);
         }
         catch(Exception e){
@@ -194,7 +196,7 @@ public class Whiteboard extends Application{
         Platform.runLater(() ->{ 
                         
             if(!(getWord().equals(tf.getText())) && (guesses < 7)){
-                guessCount.setText("Keep Trying! Guesses: " + (++guesses));
+                guess.setText("Keep Trying! Guesses: " + (++guesses));
             }
             else if(guesses >= 7){
                 out.println("WON");
