@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 
 public class Losing extends Application{
 
-    private Client client;
     private Stage ps;
 
 

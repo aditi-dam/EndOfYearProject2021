@@ -4,8 +4,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Closing extends Application{
-
-    private Client client;
+    
     private Stage ps;
 
 
