@@ -174,11 +174,13 @@ public class Whiteboard extends Application{
                 guessCount.setText("Keep Trying! Guesses: " + (++guesses));
             }
             else if(guesses >= 7){
+                out.println("LOST");
                 Closing closing = new Closing("YOU LOST :(");
                 closing.start(ps);
                 
             }
             else{
+                out.println("WON");
                 Closing closing = new Closing("YOU WON!!!");
                 closing.start(ps);
                 
