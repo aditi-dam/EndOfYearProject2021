@@ -136,12 +136,7 @@ public class Client extends Application {
                             word = Files.readAllLines(Paths.get("pictionary_ideas.txt")).get(randomWord);
 
                             Whiteboard.setWord(word);
-<<<<<<< HEAD
-                            w.pictionary(playerNum);
-                            // Platform.runLater(arg0); Needs a runnable as a parameter
-=======
                             w.pictionary(playerNum); //for word to appear on player side
->>>>>>> 22b97577e95278285b1bc1e1c3dd276a58484f3e
 
                             out.println("START" + word);
                         }
