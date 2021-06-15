@@ -177,8 +177,8 @@ public class Whiteboard extends Application{
                 // submit.setOnAction(e -> updateGuesses());
 
                 
-
-                pane.getChildren().addAll(label, tf, submit, guessCount);
+                pane.getChildren().addAll( tf);
+                //pane.getChildren().addAll(label, tf, submit, guessCount);
 
             });
             
