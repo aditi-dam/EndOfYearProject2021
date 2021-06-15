@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 //hi
@@ -102,10 +103,11 @@ public class Whiteboard extends Application{
             
             ps.setScene(scene);
             ps.show();
-            HBox h = new HBox();
+            HBox h = new HBox(10);
             h.getChildren().add(username);
             h.setAlignment(Pos.TOP_LEFT);
-            pane.getChildren().addAll(canvas, h);
+            username.setFont(Font.font("Verdana",20));
+            pane.getChildren().addAll(canvas,h);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -160,8 +162,6 @@ public class Whiteboard extends Application{
                 guessCount.setX(100); 
                 guessCount.setY(100);
 
-
-
                 pane.getChildren().addAll(label, tf, submit, guessCount);
 
             });
@@ -183,6 +183,7 @@ public class Whiteboard extends Application{
                 guessCount.setText("Keep Trying! Guesses: " + (++guesses));
             }
             else if(guesses >= 7){
+                out.println("WON");
                 Closing closing = new Closing("YOU LOST :(");
                 closing.start(ps);
                 
