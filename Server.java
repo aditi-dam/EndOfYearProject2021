@@ -94,11 +94,9 @@ public class Server {
                         broadcast(incoming, cd);
                     }
                     else if(incoming.startsWith("WON")){
-                        System.out.println("YES");
                         broadcast(incoming, cd);
                     }
                     else if(incoming.startsWith("LOST")){
-                        System.out.println("YES");
                         broadcast(incoming, cd);
                     }
                     else{

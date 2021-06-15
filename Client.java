@@ -117,7 +117,8 @@ public class Client extends Application {
                         Whiteboard.setWord(incoming.substring(incoming.indexOf("T", 3) + 1));
                         w.pictionary(playerNum); //for text field to appeaar
                     }
-                    else if(incoming.startsWith("WON")){
+
+                    if(incoming.startsWith("WON")){
                         System.out.println("won received");
                         Closing closing = new Closing("THEY GUESSED IT!!!");
                         closing.start(ps);
