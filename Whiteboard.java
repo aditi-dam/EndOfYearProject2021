@@ -38,7 +38,6 @@ public class Whiteboard extends Application{
     private Pane pane;
     private GridPane grid = new GridPane();
     private TextField tf;
-    private Button submit;
     private static String word = "";
     private int guesses = 0;
     private Text guessCount = new Text();
@@ -106,21 +105,10 @@ public class Whiteboard extends Application{
             ps.show();
             HBox h = new HBox(10);
             h.getChildren().add(username);
-            h.setAlignment(Pos.BOTTOM_LEFT);
+            h.setAlignment(Pos.TOP_LEFT);
             h.setPadding(new Insets(5,5,5,5));
             username.setFont(Font.font("Verdana",20));
             pane.getChildren().addAll(canvas,h);
-
-            HBox h1 = new HBox(10);
-            tf = new TextField(); 
-            tf.setPrefWidth(20);
-            tf.setAlignment(Pos.TOP_RIGHT);
-            submit = new Button("Guess!");
-            submit.setAlignment(Pos.TOP_LEFT);
-            submit.setPrefWidth(20);
-            h1.getChildren().addAll(tf, submit);
-            h1.setAlignment(Pos.BOTTOM_LEFT);
-            h1.setPadding(new Insets(5,5,5,5));
         }
         catch(Exception e){
             e.printStackTrace();
@@ -157,37 +145,38 @@ public class Whiteboard extends Application{
         else{ 
             Platform.runLater(() ->{ 
                 
+                tf = new TextField(); 
+                tf.setPrefWidth(100);
                 
                 
-                // Button submit = new Button("Guess!");
-                // submit.setPrefWidth(100);
+                Button submit = new Button("Guess!");
+                submit.setPrefWidth(100);
                 
 
-                // HBox h = new HBox(10);
+                HBox h = new HBox(10);
 
-                // HBox h1 = new HBox();
 
-                // HBox h2 = new HBox();
+                HBox h1 = new HBox();
 
-            
+                HBox h2 = new HBox();
              
-                // //h.getChildren().add(tf);
-                // // h1.getChildren().add(submit);
-                // // h2.getChildren().add(guessCount);
-                // // h.setAlignment(Pos.BOTTOM_LEFT);
-                // // h1.setAlignment(Pos.BOTTOM_LEFT);
-                // // h2.setAlignment(Pos.TOP_RIGHT);
-                // // h.setPadding(new Insets(5,5,5,5));
-                // // h1.setPadding(new Insets(5,5,5,5));
-                // // h2.setPadding(new Insets(5,5,5,5));
+                h.getChildren().add(tf);
+                h1.getChildren().add(submit);
+                h2.getChildren().add(guessCount);
+                h.setAlignment(Pos.BOTTOM_LEFT);
+                h1.setAlignment(Pos.BOTTOM_LEFT);
+                h2.setAlignment(Pos.TOP_RIGHT);
+                h.setPadding(new Insets(5,5,5,5));
+                h1.setPadding(new Insets(5,5,5,5));
+                h2.setPadding(new Insets(5,5,5,5));
 
 
-                // submit.setAlignment(Pos.CENTER_RIGHT);
-                // submit.setOnAction(e -> updateGuesses());
+                submit.setAlignment(Pos.CENTER_RIGHT);
+                submit.setOnAction(e -> updateGuesses());
 
                 
-                pane.getChildren().addAll(tf, submit);
-                //pane.getChildren().addAll(label, tf, submit, guessCount);
+
+                pane.getChildren().addAll(label, tf, submit, guessCount);
 
             });
             
