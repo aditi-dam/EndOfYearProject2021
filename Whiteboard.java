@@ -40,6 +40,7 @@ public class Whiteboard extends Application{
     private static String word = "";
     private int guesses = 0;
     private Text guessCount = new Text();
+    private Text username = new Text();
     private Stage ps;
 
 
@@ -157,7 +158,10 @@ public class Whiteboard extends Application{
                 guessCount.setX(100); 
                 guessCount.setY(100);
 
-                pane.getChildren().addAll(label, tf, submit, guessCount);
+                username.setX(100); 
+                username.setY(100);
+
+                pane.getChildren().addAll(label, tf, submit, guessCount,username);
 
             });
             
@@ -165,6 +169,10 @@ public class Whiteboard extends Application{
         }
 
 
+    }
+    
+    public void setUserName(String user){
+        username.setText(user);
     }
 
     public void updateGuesses(){
