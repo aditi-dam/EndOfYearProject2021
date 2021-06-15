@@ -17,7 +17,10 @@ public class Losing extends Application{
         ps = primaryStage;
         Button startGame = new Button("YOU LOSE!");
 
+
         Scene scene = new Scene(startGame, 200, 250);
+        scene.getStylesheets().add(
+            getClass().getResource("losing.css").toExternalForm());
         ps.setTitle("Losing Screen");
         ps.setScene(scene);
         ps.show();
