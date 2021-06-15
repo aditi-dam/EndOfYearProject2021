@@ -2,16 +2,20 @@ import java.io.PrintWriter;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -23,9 +27,13 @@ public class Whiteboard extends Application{
 
     private Canvas canvas = new Canvas(800, 500); 
     private GraphicsContext gc; 
+    private ColorPicker cp = new ColorPicker();
+    private Slider slider = new Slider();
+    private Label label = new Label("1.0");
     private PrintWriter out;
     private Scene scene;
     private Pane pane;
+    private GridPane grid = new GridPane();
     private TextField tf;
     private static String word = "";
     private int guesses = 0;
@@ -55,6 +63,27 @@ public class Whiteboard extends Application{
             gc.setStroke(Color.BLACK); 
             gc.setLineWidth(5); 
 
+            cp.setValue(Color.BLACK);
+            cp.setOnAction(e->{
+                gc.setStroke(cp.getValue());
+            });
+
+            slider.setMin(1);
+            slider.setMax(100);
+            slider.setShowTickLabels(true);
+            slider.setShowTickMarks(true);
+            slider.valueProperty().addListener(e->{
+                double value = slider.getValue();
+                String str = String.format("%.1f", value);
+                label.setText(str);
+                gc.setLineWidth(value);
+            });
+
+            grid.addRow(0, cp, slider, label);
+            grid.setHgap(20);
+            grid.setAlignment(Pos.TOP_CENTER);
+            grid.setPadding(new Insets(20, 0, 0, 0));
+
             scene.setOnMousePressed(e->{ 
                 gc.beginPath();
                 gc.lineTo(e.getSceneX(), e.getSceneY());
@@ -80,9 +109,6 @@ public class Whiteboard extends Application{
     public void draw(String incoming){
         double x = Double.valueOf(incoming.substring(incoming.indexOf("x") + 1, incoming.indexOf("y")));
         double y = Double.valueOf(incoming.substring(incoming.indexOf("y") + 1));
-        ///code for log
-        System.out.println("x" + x + "y" + y);
-        ///
         gc.lineTo(x, y); 
         gc.stroke();
     }
@@ -111,6 +137,7 @@ public class Whiteboard extends Application{
                 tf = new TextField(); 
                 Button submit = new Button("Guess!");
                 submit.setOnAction(e -> updateGuesses());
+
                 guessCount.setX(100); 
                 guessCount.setY(100);
 
