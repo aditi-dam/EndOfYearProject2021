@@ -196,7 +196,8 @@ public class Whiteboard extends Application{
         Platform.runLater(() ->{ 
                         
             if(!(getWord().equals(tf.getText())) && (guesses < 7)){
-                guess.setText("\nKeep Trying! Guesses: " + (++guesses));
+                ++guesses;
+                guess.setText("\nKeep Trying! Guesses: " + (7-guesses));
             }
             else if(guesses >= 7){
                 out.println("WON");
